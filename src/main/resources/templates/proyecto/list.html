@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{proyecto.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{proyecto.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/proyectos/add}" th:text="#{proyecto.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${proyectos.empty}" th:text="#{proyecto.list.empty}" />
+            <div th:if="${!proyectos.empty}" class="table-responsive">
+                <table description="lista de proyectos" class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{proyecto.id.label}" scope="col" />
+                            <th th:text="#{proyecto.nombre.label}" scope="col" />
+                            <th th:text="#{proyecto.url.label}" scope="col" />
+                            <th th:text="#{proyecto.fechaCreada.label}" scope="col" />
+                            <th th:text="#{proyecto.fechaActualizado.label}" scope="col" />
+                            <th th:text="#{proyecto.servidor.label}" scope="col" />
+                            <th th:text="#{proyecto.estado.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="proyecto : ${proyectos}">
+                            <td th:text="${proyecto.id}" />
+                            <td th:text="${proyecto.nombre}" />
+                            <td th:text="${proyecto.url}" />
+                            <td th:text="${proyecto.fechaCreada}" />
+                            <td th:text="${proyecto.fechaActualizado}" />
+                            <td th:text="${proyecto.servidor}" />
+                            
+                            <td th:text="${proyecto.estado}" />
+                            </td><td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/proyectos/edit/{id}(id=${proyecto.id})}" th:text="#{proyecto.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/proyectos/delete/{id}(id=${proyecto.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{proyecto.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

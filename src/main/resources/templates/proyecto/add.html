@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{proyecto.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{proyecto.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/proyectos}" th:text="#{proyecto.add.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('proyecto')}" />
+            <form th:action="${T(io.proyecto.my_proyecto.util.WebUtils).getRequest().requestURI}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='nombre')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='url')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='fechaCreada', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='fechaActualizado', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='servidor', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='proyecto', field='estado', type='select')}" />
+                <input type="submit" th:value="#{proyecto.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

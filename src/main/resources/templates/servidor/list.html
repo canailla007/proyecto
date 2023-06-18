@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{servidor.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{servidor.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/servidors/add}" th:text="#{servidor.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${servidors.empty}" th:text="#{servidor.list.empty}" />
+            <div th:if="${!servidors.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{servidor.id.label}" scope="col" />
+                            <th th:text="#{servidor.name.label}" scope="col" />
+                            <th th:text="#{servidor.servidor.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="servidor : ${servidors}">
+                            <td th:text="${servidor.id}" />
+                            <td th:text="${servidor.name}" />
+                            <td th:text="${servidor.servidor}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/servidors/edit/{id}(id=${servidor.id})}" th:text="#{servidor.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/servidors/delete/{id}(id=${servidor.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{servidor.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

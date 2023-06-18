@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{propietario.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{propietario.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/propietarios/add}" th:text="#{propietario.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${propietarios.empty}" th:text="#{propietario.list.empty}" />
+            <div th:if="${!propietarios.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{propietario.id.label}" scope="col" />
+                            <th th:text="#{propietario.nombre.label}" scope="col" />
+                            <th th:text="#{propietario.apellido1.label}" scope="col" />
+                            <th th:text="#{propietario.apellido2.label}" scope="col" />
+                            <th th:text="#{propietario.email.label}" scope="col" />
+                            <th th:text="#{propietario.telefono.label}" scope="col" />
+                            <th th:text="#{propietario.proyecto.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="propietario : ${propietarios}">
+                            <td th:text="${propietario.id}" />
+                            <td th:text="${propietario.nombre}" />
+                            <td th:text="${propietario.apellido1}" />
+                            <td th:text="${propietario.apellido2}" />
+                            <td th:text="${propietario.email}" />
+                            <td th:text="${propietario.telefono}" />
+                            <td th:text="${propietario.proyecto}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/propietarios/edit/{id}(id=${propietario.id})}" th:text="#{propietario.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/propietarios/delete/{id}(id=${propietario.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button th:text="#{propietario.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
